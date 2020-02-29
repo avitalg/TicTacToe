@@ -3,7 +3,15 @@ class TicTacToe:
         self.board = board
 
     def __str__(self):
-        self.display_board()
+        return ('  |  '.join(self.board[0:3]) + '\n' +
+            '---|-----|----' + '\n' +
+            '  |  '.join(self.board[3:6]) + '\n'
+            '---|-----|----' + '\n' +
+            '  |  '.join(self.board[6:9])
+        )
+
+    def empty_board(self):
+        self.board = [' '] * 9
 
     def display_board(self):
         print('  |  '.join(self.board[0:3]))
@@ -48,17 +56,18 @@ class TicTacToe:
         return play_again.upper() == 'Y'
 
 print('Welcome to Tic Tac Toe!')
+init_board = [' '] * 9
+game = TicTacToe(init_board)
 while True:
-    init_board = [' '] * 9
-    game = TicTacToe(init_board)
     player_mark = game.player_input()
     while not game.full_board_check():
         position = game.player_choice()
         game.place_marker(player_mark, position)
-        game.display_board()
+        print(game)
         if game.win_check(player_mark):
             print('Congratulations! You have won the game!')
             break
         player_mark = 'O' if player_mark == 'X' else 'X'
     if not game.replay():
         break
+    game.empty_board()
