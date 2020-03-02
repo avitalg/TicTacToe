@@ -55,19 +55,21 @@ class TicTacToe:
         play_again = input('Do you want to play again?(Y/N):')
         return play_again.upper() == 'Y'
 
-print('Welcome to Tic Tac Toe!')
-init_board = [' '] * 9
-game = TicTacToe(init_board)
-while True:
-    player_mark = game.player_input()
-    while not game.full_board_check():
-        position = game.player_choice()
-        game.place_marker(player_mark, position)
-        print(game)
-        if game.win_check(player_mark):
-            print('Congratulations! You have won the game!')
+
+if __name__ == '__main__':
+    print('Welcome to Tic Tac Toe!')
+    init_board = [' '] * 9
+    game = TicTacToe(init_board)
+    while True:
+        player_mark = game.player_input()
+        while not game.full_board_check():
+            position = game.player_choice()
+            game.place_marker(player_mark, position)
+            print(game)
+            if game.win_check(player_mark):
+                print('Congratulations! You have won the game!')
+                break
+            player_mark = 'O' if player_mark == 'X' else 'X'
+        if not game.replay():
             break
-        player_mark = 'O' if player_mark == 'X' else 'X'
-    if not game.replay():
-        break
-    game.empty_board()
+        game.empty_board()
