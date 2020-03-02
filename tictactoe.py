@@ -46,9 +46,13 @@ class TicTacToe:
         return ' ' not in self.board
 
     def player_choice(self):
-        selected_position = int(input('Please enter a number(1-9):'))
-        while not self.space_check(selected_position - 1):
-            selected_position = int(input('Please enter a number(1-9) again:'))
+        while True:
+            try:
+                selected_position = int(input('Please enter a number(1-9):'))
+                if 0 < selected_position < 10:
+                    break
+            except ValueError:
+                print("You didn't enter a number")
         return selected_position - 1
 
     def replay(self):
